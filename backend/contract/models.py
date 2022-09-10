@@ -37,7 +37,7 @@ class Contract(models.Model):
     )
     sup_username = models.TextField()
     sup_username_d = models.DecimalField(
-        max_digits=65535, decimal_places=65535, blank=True, null=True
+        max_digits=18, decimal_places=6, blank=True, null=True
     )
     id_consumer = models.ForeignKey(
         'contract.Consumer', models.DO_NOTHING, db_column='id_consumer',
@@ -58,10 +58,16 @@ class ContractElement(models.Model):
     id_cte = models.ForeignKey(
         'tru.Tru', models.DO_NOTHING, db_column='id_cte',
         to_field='id_cte',
-        blank=True, null=True, related_name='tru_elements'
+        blank=True, null=True, related_name='contracts_elements'
     )
     quantity = models.FloatField()
     amount = models.FloatField()
+    supply_deadline = models.DateField(blank=True, null=True)
+    supply_fact_date = models.DateField(blank=True, null=True)
+    risk_days = models.BigIntegerField(blank=True, null=True)
+    risk_amount = models.DecimalField(
+        max_digits=18, decimal_places=6, blank=True, null=True
+    )
 
     class Meta:
         managed = False

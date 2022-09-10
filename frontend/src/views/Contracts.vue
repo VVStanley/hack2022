@@ -22,7 +22,7 @@
       <td>{{contract.pub_date}}</td>
       <td>{{contract.contract_date}}</td>
       <td>{{contract.contract_price}}</td>
-      <td>
+      <td width="30%">
         <ul>
           <li :key="index" v-for="(element, index) in contract.elements">
             <span v-if="element.id_element">ИД: {{element.id_element}}</span>

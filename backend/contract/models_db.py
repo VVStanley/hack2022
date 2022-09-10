@@ -14,6 +14,10 @@ class DataContractElement(models.Model):
     id_cte = models.ForeignKey('DataTru', models.DO_NOTHING, db_column='id_cte', to_field='id_cte', blank=True, null=True)
     quantity = models.FloatField()
     amount = models.FloatField()
+    supply_deadline = models.DateField(blank=True, null=True)
+    supply_fact_date = models.DateField(blank=True, null=True)
+    risk_days = models.BigIntegerField(blank=True, null=True)
+    risk_amount = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
 
     class Meta:
         managed = False

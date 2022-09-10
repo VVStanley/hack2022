@@ -1,5 +1,7 @@
 from django.db import models
 
+from tru.manager import TruManager
+
 
 class Tru(models.Model):
     index = models.BigIntegerField(primary_key=True)
@@ -9,9 +11,14 @@ class Tru(models.Model):
     kpgz_code = models.TextField(blank=True, null=True)
     characteristics = models.TextField(blank=True, null=True)
 
+    objects = TruManager()
+
     class Meta:
         managed = False
         db_table = 'data_tru'
+
+    def dynamics(self):
+        return TruDynamics.objects.get(id_cte=self)
 
 
 class TruProperty(models.Model):

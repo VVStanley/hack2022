@@ -4,9 +4,12 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav" v-if="$store.getters.isAuth">
-        <router-link class="nav-link" to="/supplier">Поставщик</router-link>
-        <router-link class="nav-link" to="/tru">TRU</router-link>
-        <router-link class="nav-link" to="/logout">Logout</router-link>
+        <router-link class="nav-link" to="/supplier">Мои данные</router-link>
+        <router-link class="nav-link" to="/contracts">Мои контракты</router-link>
+        <router-link class="nav-link" to="/tru">Справочник товаров</router-link>
+        <router-link class="nav-link" to="/mytru">Мои товары</router-link>
+        <router-link class="nav-link" to="/consumers">Мои клиенты</router-link>
+        <router-link class="nav-link " to="/logout">Выход</router-link>
 
       </div>
       <div class="navbar-nav" v-else>
