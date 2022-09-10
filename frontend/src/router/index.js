@@ -5,6 +5,9 @@ import Tru from '../views/Tru'
 import Logout from '../views/Logout'
 import store from "@/store";
 import Supplier from '../views/Suplier'
+import Contracts from '../views/Contracts'
+import Consumers from '../views/Consumers'
+import MyTru from '../views/MyTru'
 
 const routes = [
   {
@@ -40,12 +43,36 @@ const routes = [
     component: Tru
   },
   {
+    path: '/mytru',
+    name: 'mytru',
+    meta: {
+      needAuth: true,
+    },
+    component: MyTru
+  },
+  {
     path: '/supplier',
     name: 'supplier',
     meta: {
       needAuth: true,
     },
     component: Supplier
+  },
+  {
+    path: '/contracts',
+    name: 'contracts',
+    meta: {
+      needAuth: true,
+    },
+    component: Contracts
+  },
+  {
+    path: '/consumers',
+    name: 'consumers',
+    meta: {
+      needAuth: true,
+    },
+    component: Consumers
   }
 ]
 
@@ -66,7 +93,7 @@ router.beforeEach(
       next({name: 'login'})
     } else {
       if (!needAuth && isAuth) {
-        next({name: 'table'})
+        next({name: 'supplier'})
       }
       next()
     }

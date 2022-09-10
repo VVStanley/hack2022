@@ -29,3 +29,16 @@ class TruProperty(models.Model):
     class Meta:
         managed = False
         db_table = 'data_tru_property'
+
+
+class TruDynamics(models.Model):
+    id_cte = models.OneToOneField(
+        'tru.Tru', models.DO_NOTHING,
+        db_column='id_cte', primary_key=True,
+        related_name='dynamics'
+    )
+    dynamics = models.TextField()  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'data_tru_dynamics'

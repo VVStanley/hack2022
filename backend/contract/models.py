@@ -1,4 +1,13 @@
 from django.db import models
+from django.db.models import Sum
+
+
+class ConsumerManager(models.Manager):
+
+    def with_sum_contracts(self):
+        return self.annotate(
+            contract_sum=Sum('consumer_contracts__contract_price')
+        )
 
 
 class Consumer(models.Model):
@@ -7,6 +16,8 @@ class Consumer(models.Model):
     cons_inn = models.TextField()
     cons_kpp = models.TextField()
     cons_name = models.TextField()
+
+    objects = ConsumerManager()
 
     class Meta:
         managed = False
@@ -19,13 +30,11 @@ class Contract(models.Model):
     pub_date = models.DateTimeField(blank=True, null=True)
     contract_date = models.DateTimeField(blank=True, null=True)
     contract_price = models.FloatField(blank=True, null=True)
-    cte = models.TextField(blank=True, null=True)
     id_supplier = models.ForeignKey(
         'contract.Supplier', models.DO_NOTHING, db_column='id_supplier',
         blank=True, null=True,
         related_name='my_contracts'
     )
-    # TODO: наверное тут ФК
     sup_username = models.TextField()
     sup_username_d = models.DecimalField(
         max_digits=65535, decimal_places=65535, blank=True, null=True
@@ -38,6 +47,25 @@ class Contract(models.Model):
     class Meta:
         managed = False
         db_table = 'data_contract'
+
+
+class ContractElement(models.Model):
+    id_element = models.BigAutoField(primary_key=True)
+    id_contract = models.ForeignKey(
+        'contract.Contract', models.DO_NOTHING,
+        db_column='id_contract', related_name='contracts_elements'
+    )
+    id_cte = models.ForeignKey(
+        'tru.Tru', models.DO_NOTHING, db_column='id_cte',
+        to_field='id_cte',
+        blank=True, null=True, related_name='tru_elements'
+    )
+    quantity = models.FloatField()
+    amount = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'data_contract_element'
 
 
 class Supplier(models.Model):
@@ -53,7 +81,6 @@ class Supplier(models.Model):
     sup_kpp = models.TextField()
     sup_name = models.TextField()
     sup_type = models.TextField()
-
 
     class Meta:
         managed = False

@@ -6,7 +6,7 @@
 export default {
   name: "Logout",
   mounted() {
-    localStorage.setItem('authToken', '');
+    localStorage.removeItem('authToken');
     window.location.reload();
   }
 }

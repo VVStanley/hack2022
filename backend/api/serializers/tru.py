@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 
-from tru.models import Tru, TruProperty
+from tru.models import Tru, TruDynamics, TruProperty
 
 
-class DataTruPropertySerializer(ModelSerializer):
+class TruPropertySerializer(ModelSerializer):
 
     class Meta:
         model = TruProperty
@@ -15,11 +15,21 @@ class DataTruPropertySerializer(ModelSerializer):
         )
 
 
-class DataTruSerializer(ModelSerializer):
+class TruDynamicsSerializer(ModelSerializer):
 
-    properties = DataTruPropertySerializer(
-        many=True, read_only=True
+    class Meta:
+        model = TruDynamics
+        fields = (
+            'dynamics',
+        )
+
+
+class TruSerializer(ModelSerializer):
+
+    tru_dynamics = TruDynamicsSerializer(
+        many=True, read_only=True, source='dynamics'
     )
+    properties = TruPropertySerializer(many=True, read_only=True)
 
     class Meta:
         model = Tru
@@ -31,4 +41,5 @@ class DataTruSerializer(ModelSerializer):
             'kpgz_code',
             'characteristics',
             'properties',
+            'tru_dynamics',
         )

@@ -13,7 +13,7 @@ router = routers.SimpleRouter()
 
 router.register(r'tru', TruViewSet, basename='tru')
 router.register(r'supplier', SupplierViewSet, basename='supplier')
-router.register(r'consumer', ConsumerSViewSet, basename='consumer')
+router.register(r'consumers', ConsumerSViewSet, basename='consumers')
 router.register(r'contracts', ContractsSViewSet, basename='contracts')
 
 urlpatterns = router.urls

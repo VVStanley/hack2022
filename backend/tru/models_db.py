@@ -8,14 +8,10 @@
 from django.db import models
 
 
-class DataTruProperty(models.Model):
-    id_property = models.BigAutoField(primary_key=True)
-    id_cte = models.ForeignKey('DataTru', models.DO_NOTHING, db_column='id_cte', to_field='id_cte')
-    prop_name = models.TextField()
-    prop_value = models.TextField(blank=True, null=True)
-    prop_id = models.BigIntegerField()
-    prop_unit = models.TextField(blank=True, null=True)
+class DataTruDynamics(models.Model):
+    id_cte = models.OneToOneField('DataTru', models.DO_NOTHING, db_column='id_cte', primary_key=True)
+    dynamics = models.TextField()  # This field type is a guess.
 
     class Meta:
         managed = False
-        db_table = 'data_tru_property'
+        db_table = 'data_tru_dynamics'

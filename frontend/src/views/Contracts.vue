@@ -1,29 +1,38 @@
 <template>
-<h1>Стандартная товарная еденица</h1>
+<h1>Мои контракты</h1>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>ИД</th>
-        <th>Наименование</th>
-      <th>Категория</th>
-      <th>КПГЗ</th>
-      <th>Характеристики</th>
+      <th>ИД контракта</th>
+      <th>Контракт</th>
+      <th>Клиент</th>
+      <th>Дата публикации</th>
+      <th>Дата контракта</th>
+      <th>Цена</th>
+      <th>Элементы контракта</th>
       </tr>
     </thead>
     <tbody>
-      <tr :key="index" v-for="(item, index) in data.results">
-        <td>{{ item.id_cte }}</td>
-        <td>{{ item.cte_name }}</td>
-        <td>{{ item.category }}</td>
-        <td>{{ item.kpgz_code }}</td>
-        <td>
-          <ul>
-            <li :key="index" v-for="(property, index) in item.properties">
-              {{ property.prop_name }}: {{ property.prop_value }} {{property.prop_unit ? 'ЕД.ИЗМ:' + property.prop_unit : ''}}
-            </li>
-          </ul>
-        </td>
-      </tr>
+    <tr :key="index" v-for="(contract, index) in data.results">
+      <td>{{contract.id_contract}}</td>
+      <td>{{contract.contract}}</td>
+      <td>
+        {{contract.consumer.cons_inn}}/{{contract.consumer.cons_kpp}} <br> {{contract.consumer.cons_name}}
+      </td>
+      <td>{{contract.pub_date}}</td>
+      <td>{{contract.contract_date}}</td>
+      <td>{{contract.contract_price}}</td>
+      <td>
+        <ul>
+          <li :key="index" v-for="(element, index) in contract.elements">
+            <span v-if="element.id_element">ИД: {{element.id_element}}</span>
+            <span v-else class="text-danger">Неизвестно</span>
+            Кол-во: {{element.quantity}}
+            Сумма: {{element.amount}}
+          </li>
+        </ul>
+      </td>
+    </tr>
     </tbody>
   </table>
   <nav>
@@ -46,9 +55,10 @@
 
 <script>
 import axios from "@/axios/index";
+import store from "@/store";
 
 export default {
-  name: "Tru",
+  name: "Contracts",
   data() {
     return {
       data: [],
@@ -56,7 +66,8 @@ export default {
       next: null,
       previous: null,
       count: 0,
-      link: '/api/v1/tru/'
+      link: `/api/v1/contracts/?sup_username=${store.getters.getUsername}`
+      // link: `/api/v1/contracts/?sup_username=9718042934771301001`
     }
   },
   mounted() {
@@ -64,11 +75,11 @@ export default {
   },
   methods: {
     async get_last() {
-      this.link = `/api/v1/tru/?offset=${this.count - this.limit}`
+      this.link = `/api/v1/contracts/?sup_username=${store.getters.getUsername}&offset=${this.count - this.limit}`
       await this.get_data()
     },
     async get_first() {
-      this.link = '/api/v1/tru/'
+      this.link = `/api/v1/contracts/?sup_username=${store.getters.getUsername}`
       await this.get_data()
     },
     async get_previous() {
@@ -89,7 +100,7 @@ export default {
             }
           }
       ).then(
-          ({data})  => {
+          ({data}) => {
             this.next = data.next
             this.previous = data.previous
             this.count = data.count

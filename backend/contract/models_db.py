@@ -8,16 +8,13 @@
 from django.db import models
 
 
-class DataSupplier(models.Model):
-    id_sup = models.BigAutoField(primary_key=True)
-    sup_username = models.TextField()
-    sup_inn = models.TextField()
-    sup_kpp = models.TextField()
-    sup_name = models.TextField()
-    sup_type = models.TextField()
-    sup_username_d = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+class DataContractElement(models.Model):
+    id_element = models.BigAutoField(primary_key=True)
+    id_contract = models.ForeignKey('DataContract', models.DO_NOTHING, db_column='id_contract')
+    id_cte = models.ForeignKey('DataTru', models.DO_NOTHING, db_column='id_cte', to_field='id_cte', blank=True, null=True)
+    quantity = models.FloatField()
+    amount = models.FloatField()
 
     class Meta:
         managed = False
-        db_table = 'data_supplier'
-        unique_together = (('sup_inn', 'sup_kpp', 'sup_name'),)
+        db_table = 'data_contract_element'

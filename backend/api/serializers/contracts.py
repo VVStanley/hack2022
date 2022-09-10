@@ -1,6 +1,7 @@
+from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from contract.models import Consumer, Contract, Supplier
+from contract.models import Consumer, Contract, ContractElement, Supplier
 
 
 class SupplierSerializer(ModelSerializer):
@@ -18,18 +19,39 @@ class SupplierSerializer(ModelSerializer):
 
 class ConsumerSerializer(ModelSerializer):
 
+    contract_sum = SerializerMethodField()
+
     class Meta:
         model = Consumer
         fields = (
+            'contract_sum',
             'cons_inn',
             'cons_kpp',
             'cons_name',
         )
 
+    @staticmethod
+    def get_contract_sum(obj):
+        return obj.contract_sum if hasattr(obj, 'contract_sum') else '0.0'
+
+
+class ContractElementsSerializer(ModelSerializer):
+
+    class Meta:
+        model = ContractElement
+        fields = (
+            'id_element',
+            'quantity',
+            'amount',
+        )
+
 
 class ContractsSerializer(ModelSerializer):
 
-    consumer = ConsumerSerializer(read_only=True)
+    elements = ContractElementsSerializer(
+        many=True, source='contracts_elements', read_only=True
+    )
+    consumer = ConsumerSerializer(read_only=True, source='id_consumer')
 
     class Meta:
         model = Contract
@@ -39,6 +61,6 @@ class ContractsSerializer(ModelSerializer):
             'pub_date',
             'contract_date',
             'contract_price',
-            'cte',
             'consumer',
+            'elements'
         )

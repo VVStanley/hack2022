@@ -45,7 +45,6 @@ export default {
             console.log(data)
             store.commit('setAuthToken', data.auth_token);
             store.commit('setUsername', this.user.username);
-            console.log('us - ', store.getters.getUsername)
             window.location.reload();
           }
       ).catch(
