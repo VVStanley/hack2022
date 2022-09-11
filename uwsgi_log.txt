@@ -1,0 +1,30 @@
+*** Starting uWSGI 2.0.20 (64bit) on [Sun Sep 11 03:10:28 2022] ***
+compiled with version: 11.2.0 on 11 September 2022 00:04:27
+os: Linux-5.15.0-47-generic #51-Ubuntu SMP Thu Aug 11 07:51:15 UTC 2022
+nodename: wstanley-pc
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 28
+current working directory: /home/wstanley/www/hack2022
+detected binary path: /home/wstanley/www/hack2022/venv/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/wstanley/www/hack2022/backend
+your processes number limit is 127728
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/wstanley/www/hack2022/h2022.sock fd 3
+Python version: 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0]
+PEP 405 virtualenv detected: /home/wstanley/www/hack2022/venv
+Set PythonHome to /home/wstanley/www/hack2022/venv
+Python main interpreter initialized at 0x55f5b6562e90
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 166752 bytes (162 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55f5b6562e90 pid: 10994 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 10994)
+spawned uWSGI worker 1 (pid: 10995, cores: 2)

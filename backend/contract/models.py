@@ -1,13 +1,6 @@
 from django.db import models
-from django.db.models import Sum
 
-
-class ConsumerManager(models.Manager):
-
-    def with_sum_contracts(self):
-        return self.annotate(
-            contract_sum=Sum('consumer_contracts__contract_price')
-        )
+from contract.manager import ConsumerManager
 
 
 class Consumer(models.Model):

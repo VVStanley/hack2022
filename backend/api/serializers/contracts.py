@@ -1,7 +1,15 @@
-from rest_framework.fields import SerializerMethodField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.fields import CharField, SerializerMethodField
+from rest_framework.serializers import ModelSerializer, Serializer
 
 from contract.models import Consumer, Contract, ContractElement, Supplier
+
+
+class TruAllSaleConsumersSerializer(Serializer):
+
+    id_consumer = CharField()
+    name = CharField()
+    quantity = CharField()
+    amount = CharField()
 
 
 class SupplierSerializer(ModelSerializer):

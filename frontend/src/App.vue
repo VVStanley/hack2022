@@ -8,6 +8,7 @@
         <router-link class="nav-link" to="/contracts">Мои контракты</router-link>
         <router-link class="nav-link" to="/tru">Справочник товаров</router-link>
         <router-link class="nav-link" to="/mytru">Мои товары</router-link>
+        <router-link class="nav-link" to="/consumerTru">Покупают товар</router-link>
         <router-link class="nav-link" to="/consumers">Мои клиенты</router-link>
         <router-link class="nav-link " to="/logout">Выход</router-link>
 

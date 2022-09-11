@@ -19,10 +19,15 @@
       <td>{{ tru.id_cte }}</td>
       <td>{{ tru.cte_name }}</td>
       <td>{{ tru.category }}</td>
-      <td>{{ tru.my_sum_amount }}</td>
-      <td>{{ tru.sum_all }}</td>
+      <td>{{ rounding(tru.my_sum_amount) }}</td>
+      <td>{{ rounding(tru.sum_all) }}</td>
       <td>{{ rounding(tru.growth_perspective, 0) }}%</td>
-      <td>{{ tru.cons_cnt }}</td>
+      <td>
+        {{ tru.cons_cnt }}
+        <button class="btn btn-sm btn-success" v-on:click="openModal(tru)">
+          Показать
+        </button>
+      </td>
       <td width="100px">
         <ul>
           <li :key="index" v-for="(dynamic, index) in tru.dynamics">
@@ -38,7 +43,7 @@
                            :refLineStyles="spRefLineStyles"
                            :styles="spCurveStyles"
                            :data="get_data_sparkline(tru.dynamics)"
-                           />
+          />
         </sparklines>
       </td>
     </tr>
@@ -63,6 +68,82 @@
       </li>
     </ul>
   </nav>
+
+  <div :class="[showModal ? 'modal fade show ds' : 'modal fade dsn']"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-center align-items-center">
+        <figure>
+            <blockquote class="blockquote">
+              <p>Заказчики которые покупают товар ИД:{{ truX.id_cte }}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+              {{ truX.cte_name }}
+            </figcaption>
+          </figure>
+
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center my-3">
+      <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th>ИД заказчика</th>
+            <th>Количество</th>
+            <th>Наименование</th>
+            <th>Сумма</th>
+            <th>Подписаться</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr :key="index" v-for="(consumer, index) in truXConsumersData">
+              <td>{{consumer.id_consumer}}</td>
+              <td>{{consumer.name}}</td>
+              <td>{{consumer.quantity}}</td>
+              <td>{{consumer.amount}}</td>
+              <td>
+                <button
+                    type="button"
+                    :class="[consumer.subscribe ? 'btn btn-success' : 'btn btn-primary']"
+                    v-on:click="subscribe(consumer.id_consumer)"
+                >
+                  Подписаться
+                </button>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="openModal"
+                  data-mdb-dismiss="modal">Закрыть
+          </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div :class="[showSubscribeModal ? 'modal fade show ds' : 'modal fade dsn']" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-sm ptm">
+      <div class="modal-content text-center">
+        <div class="modal-header bg-success text-white d-flex justify-content-center">
+          <h5 class="modal-title" id="exampleModalLabel">Вы подписаны</h5>
+        </div>
+        <div class="modal-body">
+          <i class="fas fa-check fa-3x text-success"></i>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-success" v-on:click="subscribe" data-mdb-dismiss="modal">
+            Отлично!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -79,6 +160,13 @@ export default {
   },
   data() {
     return {
+      truX: {
+        id_cte: null,
+        cte_name: null
+      },
+      truXConsumersData: [],
+      showModal: false,
+      showSubscribeModal: false,
       spRefLineStyles: {
         stroke: '#d14',
         strokeOpacity: 5,
@@ -101,6 +189,41 @@ export default {
     this.get_data()
   },
   methods: {
+    subscribe(id_consumer) {
+      console.log(id_consumer)
+      this.showSubscribeModal = !this.showSubscribeModal;
+      this.truXConsumersData.forEach(item => {
+        if (item.id_consumer === id_consumer) {
+          console.log('-- ', item.id_consumer, ' -- ', id_consumer)
+          item.subscribe = true
+        }
+      })
+      console.log(this.truXConsumersData)
+    },
+    async openModal(tru) {
+      this.truX = tru;
+      await this.get_data_truX()
+      this.showModal = !this.showModal
+    },
+    async get_data_truX() {
+      await axios.get(
+          `/api/v1/consumers/${this.truX.id_cte}/all_sale/`,
+          {
+            headers: {
+              Authorization: 'Token ' + localStorage.getItem('authToken')
+
+            }
+          }
+      ).then(
+          ({data}) => {
+            this.truXConsumersData = data;
+            this.truXConsumersData.map(item => item['subscribe'] = false)
+            console.log(this.truXConsumersData)
+          }
+      ).catch(
+          error => console.log(error.response.data)
+      )
+    },
     get_data_sparkline(dynamics) {
       return dynamics.map(item => item.amount)
     },
@@ -134,7 +257,6 @@ export default {
           }
       ).then(
           ({data}) => {
-            console.log(data)
             this.next = data.next
             this.previous = data.previous
             this.count = data.count
@@ -149,5 +271,17 @@ export default {
 </script>
 
 <style scoped>
+.ds {
+  display: block;
+}
 
+.dsn {
+  display: none;
+}
+.modal-xl {
+    max-width: 90%;
+}
+.ptm{
+  padding-top: 30%;
+}
 </style>
