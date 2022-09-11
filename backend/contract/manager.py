@@ -32,6 +32,37 @@ class ConsumerManager(models.Manager):
             contract_sum=Sum('consumer_contracts__contract_price')
         )
 
+    def data_sale_consumers(self, id_consumer, id_supplier):
+        from django.db import connection
+        query = f"""
+        select 
+            dce1.id_cte,
+            cte_name, 
+            sum(quantity) as quantity, 
+            sum(amount) as amount, 
+            count (*) as contracts_cnt  
+        from data_contract dc1 join 
+        data_contract_element dce1 on dc1.id_contract =dce1.id_contract join
+        data_tru dt1 on dt1.id_cte=dce1.id_cte
+
+        where dce1.id_cte not in (select dce.id_cte from data_contract dc join data_contract_element dce on dc.id_contract =dce.id_contract join
+        data_tru dt on dt.id_cte=dce.id_cte where id_supplier={id_supplier} and dce.id_cte is not null) 
+        and dc1.id_consumer={id_consumer} group by id_consumer,dce1.id_cte, cte_name order by amount desc
+        """
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            result_list = []
+            for row in cursor.fetchall():
+                p = {
+                    "id_cte": row[0],
+                    "cte_name": row[1],
+                    "quantity": row[2],
+                    "amount": row[3],
+                    "contracts_cnt": row[4],
+                }
+                result_list.append(p)
+        return result_list
+
     def tru_all_consumers_sale(self, id_cte):
         from django.db import connection
         query = f"""

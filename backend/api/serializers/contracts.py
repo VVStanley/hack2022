@@ -25,6 +25,15 @@ class SupplierSerializer(ModelSerializer):
         )
 
 
+class SalesDataConsumersSerializer(Serializer):
+
+    id_cte = CharField()
+    cte_name = CharField()
+    quantity = CharField()
+    amount = CharField()
+    contracts_cnt = CharField()
+
+
 class ConsumerSerializer(ModelSerializer):
 
     contract_sum = SerializerMethodField()
@@ -32,6 +41,7 @@ class ConsumerSerializer(ModelSerializer):
     class Meta:
         model = Consumer
         fields = (
+            'id_consumer',
             'contract_sum',
             'cons_inn',
             'cons_kpp',

@@ -22,7 +22,7 @@ class SupplierViewSet(RetrieveModelMixin, GenericViewSet):
         return Supplier.objects.all()
 
 
-class ConsumerSViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+class ConsumersViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
     permission_classes = (IsAuthenticated,)
 
@@ -40,6 +40,17 @@ class ConsumerSViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
             'tru_all_consumers_sale': TruAllSaleConsumersSerializer
         }
         return actions.get(self.action, ConsumerSerializer)
+
+    @action(
+        methods=['get'], detail=False,
+        url_path=r'(?P<id_consumer>[^/.]+)/(?P<sup_username>[^/.]+)'
+    )
+    def get_data_sale_consumers(self, request, id_consumer=None, sup_username=None):
+        supplier = Supplier.objects.get(sup_username=sup_username)
+        queryset_data = Consumer.objects.data_sale_consumers(
+            id_consumer=id_consumer, id_supplier=supplier.id_sup
+        )
+        return Response(queryset_data, status=status.HTTP_200_OK)
 
     @action(
         methods=['get'], detail=False, url_path='for-charts'

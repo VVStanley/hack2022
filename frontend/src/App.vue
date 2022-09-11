@@ -6,9 +6,11 @@
       <div class="navbar-nav" v-if="$store.getters.isAuth">
         <router-link class="nav-link" to="/supplier">Мои данные</router-link>
         <router-link class="nav-link" to="/contracts">Мои контракты</router-link>
-        <router-link class="nav-link" to="/tru">Справочник товаров</router-link>
+
         <router-link class="nav-link" to="/mytru">Мои товары</router-link>
         <router-link class="nav-link" to="/consumers">Мои клиенты</router-link>
+
+        <router-link class="nav-link" to="/tru">Справочник товаров</router-link>
 
         <a href="http://172.20.26.3:8000/map/" target="_blank" class="nav-link">Карта поставщиков</a>
 

@@ -1,7 +1,7 @@
 from rest_framework import routers
 
 from api.views.contracts import (
-    ConsumerSViewSet, ContractsSViewSet,
+    ConsumersViewSet, ContractsSViewSet,
     SupplierViewSet,
 )
 from api.views.tru import TruViewSet
@@ -13,7 +13,7 @@ router = routers.SimpleRouter()
 
 router.register(r'tru', TruViewSet, basename='tru')
 router.register(r'supplier', SupplierViewSet, basename='supplier')
-router.register(r'consumers', ConsumerSViewSet, basename='consumers')
+router.register(r'consumers', ConsumersViewSet, basename='consumers')
 router.register(r'contracts', ContractsSViewSet, basename='contracts')
 
 urlpatterns = router.urls
