@@ -1,6 +1,6 @@
 from django.db import models
 
-from contract.manager import ConsumerManager
+from contract.manager import ConsumerManager, ContractManager
 
 
 class Consumer(models.Model):
@@ -36,6 +36,8 @@ class Contract(models.Model):
         'contract.Consumer', models.DO_NOTHING, db_column='id_consumer',
         related_name='consumer_contracts'
     )
+
+    objects = ContractManager()
 
     class Meta:
         managed = False

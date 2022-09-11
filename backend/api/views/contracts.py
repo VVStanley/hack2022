@@ -7,7 +7,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from api.serializers.contracts import (
     ConsumerSerializer, ContractsSerializer,
-    SupplierSerializer, TruAllSaleConsumersSerializer,
+    MapSerializer, SupplierSerializer, TruAllSaleConsumersSerializer,
 )
 from contract.models import Consumer, Contract, Supplier
 
@@ -65,17 +65,12 @@ class ConsumerSViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
         queryset_data = Consumer.objects.tru_all_consumers_sale(
             id_cte=id_cte
         )
-        # page = self.paginate_queryset(queryset_data)
-        # if page is not None:
-        #     serializer = self.get_serializer(page, many=True)
-        #     return self.get_paginated_response(serializer.data)
         return Response(queryset_data, status=status.HTTP_200_OK)
 
 
 class ContractsSViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
     permission_classes = (IsAuthenticated,)
-    serializer_class = ContractsSerializer
 
     def get_queryset(self):
         if 'sup_username' in self.request.query_params:
@@ -85,4 +80,20 @@ class ContractsSViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
                 )
             )
         return Contract.objects.all()
+
+    def get_serializer_class(self):
+        actions = {
+            'data_map': MapSerializer
+        }
+        return actions.get(self.action, ContractsSerializer)
+
+    @action(
+        methods=['get'], detail=False,
+        url_path='data_map'
+    )
+    def data_map(self):
+        """Данные для отрисовки карты"""
+        queryset_data = Contract.objects.data_for_map()
+        return Response(queryset_data, status=status.HTTP_200_OK)
+
 

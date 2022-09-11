@@ -2,6 +2,29 @@ from django.db import models
 from django.db.models import Sum
 
 
+class ContractManager(models.Manager):
+
+    def data_for_map(self):
+        from django.db import connection
+        query = """
+        SELECT 
+            sum(contract_price) as sum_cost, 
+            region_name
+        FROM public.data_contract join data_region 
+        on substring(cons_inn::text,1,2)=region_code::text group by region_name order by sum_cost desc
+        """
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            result_list = []
+            for row in cursor.fetchall():
+                p = {
+                    "sum_cost": row[0],
+                    "region_name": row[1]
+                }
+                result_list.append(p)
+        return result_list
+
+
 class ConsumerManager(models.Manager):
 
     def with_sum_contracts(self):

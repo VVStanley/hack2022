@@ -45,13 +45,28 @@ class ConsumerSerializer(ModelSerializer):
 
 class ContractElementsSerializer(ModelSerializer):
 
+    tru_name = SerializerMethodField()
+    tru_category = SerializerMethodField()
+
     class Meta:
         model = ContractElement
         fields = (
+            'tru_name',
+            'tru_category',
             'id_element',
             'quantity',
             'amount',
+            'risk_days',
+            'risk_amount',
         )
+
+    @staticmethod
+    def get_tru_name(obj):
+        return obj.id_cte.cte_name if obj.id_cte else obj.id_cte
+
+    @staticmethod
+    def get_tru_category(obj):
+        return obj.id_cte.category if obj.id_cte else obj.id_cte
 
 
 class ContractsSerializer(ModelSerializer):
@@ -72,3 +87,9 @@ class ContractsSerializer(ModelSerializer):
             'consumer',
             'elements'
         )
+
+
+class MapSerializer(Serializer):
+
+    sum_cost = CharField()
+    region_name = CharField()
