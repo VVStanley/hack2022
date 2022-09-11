@@ -107,7 +107,8 @@
                     :class="[consumer.subscribe ? 'btn btn-success' : 'btn btn-primary']"
                     v-on:click="subscribe(consumer.uuid_id)"
                 >
-                  Подписаться
+                  <span v-if="consumer.subscribe">Подписан</span>
+                      <span v-else>Подписаться</span>
                 </button>
               </td>
             </tr>
@@ -190,15 +191,12 @@ export default {
   },
   methods: {
     subscribe(uuid_id) {
-      console.log(uuid_id)
       this.showSubscribeModal = !this.showSubscribeModal;
       this.truXConsumersData.forEach(item => {
         if (item.uuid_id === uuid_id) {
-          console.log('--- ', item.uuid_id, ' -- ', uuid_id)
           item.subscribe = true
         }
       })
-      console.log(this.truXConsumersData)
     },
     async openModal(tru) {
       this.truX = tru;

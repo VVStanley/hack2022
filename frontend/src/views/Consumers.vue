@@ -98,7 +98,16 @@
                   <td>{{cons_data.quantity}}</td>
                   <td>{{rounding(cons_data.amount)}}</td>
                   <td>{{cons_data.contracts_cnt}}</td>
-                  <td>11</td>
+                  <td>
+                    <button
+                    type="button"
+                    :class="[cons_data.subscribe ? 'btn btn-success' : 'btn btn-primary']"
+                    v-on:click="subscribe(cons_data.uuid_id)"
+                >
+                      <span v-if="cons_data.subscribe">Подписан</span>
+                      <span v-else>Подписаться</span>
+                </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -114,7 +123,23 @@
       </div>
     </div>
   </div>
-
+  <div :class="[showSubscribeModal ? 'modal fade show ds' : 'modal fade dsn']" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-sm ptm">
+      <div class="modal-content text-center">
+        <div class="modal-header bg-success text-white d-flex justify-content-center">
+          <h5 class="modal-title" id="exampleModalLabel">Вы подписаны</h5>
+        </div>
+        <div class="modal-body">
+          <i class="fas fa-check fa-3x text-success"></i>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-success" v-on:click="subscribe" data-mdb-dismiss="modal">
+            Отлично!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </template>
 
@@ -130,7 +155,7 @@ import {
 } from 'chart.js'
 import axios from "@/axios";
 import store from "@/store";
-
+import { v4 as uuidv4 } from 'uuid';
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
 export default {
@@ -172,6 +197,7 @@ export default {
   data() {
     return {
       titleModalName: null,
+      showSubscribeModal: false,
       showModal: false,
       chartColors: [
         '#7CB9E8',
@@ -221,6 +247,15 @@ export default {
     this.get_data_to_chart(this.countCharts);
   },
   methods: {
+    subscribe(uuid_id) {
+      console.log(uuid_id)
+      this.showSubscribeModal = !this.showSubscribeModal;
+      this.consumer_data_sales.forEach(item => {
+        if (item.uuid_id === uuid_id) {
+          item.subscribe = true
+        }
+      })
+    },
     async get_sale_consumer_data(id_consumer){
       await axios.get(
           `/api/v1/consumers/${id_consumer}/${store.getters.getUsername}/`,
@@ -231,7 +266,13 @@ export default {
             }
           }
       ).then(
-          ({data}) => this.consumer_data_sales = data
+          ({data}) => {
+            this.consumer_data_sales = data;
+            this.consumer_data_sales.map(item => {
+              item['uuid_id'] = uuidv4();
+              item['subscribe'] = false;
+            })
+          }
       ).catch(
           error => console.log(error.response.data)
       )
