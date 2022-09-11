@@ -6,7 +6,6 @@
       <th>ИД контракта</th>
       <th>Контракт</th>
       <th>Клиент</th>
-      <th>Дата публикации</th>
       <th>Дата контракта</th>
       <th>Цена</th>
       <th>Элементы контракта</th>
@@ -20,8 +19,7 @@
         {{ contract.consumer.cons_inn }}/{{ contract.consumer.cons_kpp }} <br>
         {{ contract.consumer.cons_name }}
       </td>
-      <td>{{ contract.pub_date }}</td>
-      <td>{{ contract.contract_date }}</td>
+      <td>{{ formdate(contract.contract_date) }}</td>
       <td>{{ contract.contract_price }}</td>
       <td width="30%">
         <ul>
@@ -84,6 +82,10 @@ export default {
     this.get_data()
   },
   methods: {
+    formdate(strdate) {
+      let date = new Date(strdate)
+      return date.toLocaleDateString("ru-RU")
+    },
     rounding(value, round = 2) {
       return parseInt(value).toFixed(round)
     },

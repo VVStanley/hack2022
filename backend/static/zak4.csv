@@ -1,0 +1,21 @@
+Rtype,RegionCode,RegionName,CarAccidents,Deaths
+federation,Russian Federation,Российская Федерация,203597,27991
+fregion,RU-BEL,Белгородскаяобласть,651,0
+fregion,RU-BRY,Брянскаяобласть,875,0
+fregion,RU-VLA,Владимирскаяобласть,1283,0
+fregion,RU-VOR,Воронежскаяобласть,1172,0
+fregion,RU-IVA,Ивановскаяобласть,1097,0
+fregion,RU-KLU,Калужскаяобласть,1225,0
+fregion,RU-KOS,Костромскаяобласть,371,0
+fregion,RU-KRS,Курскаяобласть,556,0
+fregion,RU-LIP,Липецкаяобласть,673,0
+fregion, RU-MOW,Москва,151313,46071542668.7
+fregion,RU-MOS,Московскаяобласть,25961,1327057142.3
+fregion,RU-ORL,Орловскаяобласть,548,0
+fregion,RU-RYA,Рязанскаяобласть,1080,0
+fregion,RU-SMO,Смоленскаяобласть,964,0
+fregion,RU-TAM,Тамбовскаяобласть,736,0
+fregion,RU-TVE,Тверскаяобласть,1212,0
+fregion,RU-TUL,Тульскаяобласть,1564,1843245.1
+fregion,RU-YAR,Ярославскаяобласть,1157,0
+fdistrict,Central,Центральныйокруг,54493,0
