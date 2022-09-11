@@ -1,0 +1,94 @@
+Rtype,RegionCode,RegionName,CarAccidents,Deaths
+federation,Russian Federation,Российская Федерация,203597,27991
+fregion,RU-BEL,Белгородская область,1369,4
+fregion,RU-BRY,Брянская область,1449,925
+fregion,RU-VLA,Владимирская область,3157,1283
+fregion,RU-VOR,Воронежская область,3920,1172
+fregion,RU-IVA,Ивановская область,2018,462
+fregion,RU-KLU,Калужская область,2140,10
+fregion,RU-KOS,Костромская область,873,2
+fregion,RU-KRS,Курская область,2060,2
+fregion,RU-LIP,Липецкая область,2225,2
+fregion,RU-MOW,Москва,12010,2923
+fregion,RU-MOS,Московская область,9241,7137
+fregion,RU-ORL,Орловская область,1350,302
+fregion,RU-RYA,Рязанская область,2464,3
+fregion,RU-SMO,Смоленская область,1384,3
+fregion,RU-TAM,Тамбовская область,2057,362
+fregion,RU-TVE,Тверская область,2077,470
+fregion,RU-TUL,Тульская область,2621,514
+fregion,RU-YAR,Ярославская область,2078,7
+fdistrict,Central,Центральный округ,54493,0
+fregion,RU-KR,Республика Карелия,861,0
+fregion,RU-KO,Республика Коми,1675,0
+fregion,RU-ARK,Архангельская область,2133,294
+fregion,RU-VLG,Вологодская область,1986,3
+fregion,RU-KGD,Калининградская область,1327,218
+fregion,RU-LEN,Ленинградская область,3576,1
+fregion,RU-SPE,Санкт-Петербург,8288,3061
+fregion,RU-MUR,Мурманская область,969,189
+fregion,RU-NGR,Новгородская область,1470,918
+fregion,RU-PSK,Псковская область,1635,294
+fregion,RU-NEN,Ненецкий авт.округ,43,123
+fdistrict,Northwestern,Северо-Западный округ,23963,0
+fregion,RU-AD,Республика Адыгея,540,0
+fregion,RU-KL,Республика Калмыкия,692,0
+fregion,RU-KDA,Краснодарский край,6710,6508
+fregion,RU-AST,Астраханская область,1763,2
+fregion,RU-VGG,Волгоградская область,3052,3
+fregion,RU-ROS,Ростовская область,6183,34
+fdistrict,Southern,Южный округ,18940,0
+fregion,RU-DA,Республика Дагестан,1419,1
+fregion,RU-IN,Республика Ингушетия,235,4
+fregion,RU-KB,Кабардино-Балкарская Республика,837,2
+fregion,RU-KC,Карачаево-Черкесская Республика,642,0
+fregion,RU-SE,Республика Северная Осетия,769,1
+fregion,RU-CE,Чеченская Республика,387,0
+fregion,RU-CE & RU-IN,Чеченская Республика и Республика Ингушетия,652,0
+fregion,RU-STA,Ставропольский край,2912,1
+fdistrict,Northcaucasian,Северо-Кавказский округ,7201,0
+fregion,RU-BA,Республика Башкортостан,5115,5
+fregion,RU-ME,Республика Марий Эл,1113,0
+fregion,RU-MO,Республика Мордовия,1104,2
+fregion,RU-TA,Республика Татарстан,5483,6
+fregion,RU-UD,Удмуртская Республика,1524,4
+fregion,RU-CU,Чувашская Республика,2061,1139
+fregion,RU-PER,Пермский край,3898,1082
+fregion,RU-KIR,Кировская область,2093,371
+fregion,RU-NIZ,Нижегородская область,5215,4170
+fregion,RU-ORE,Оренбургская область,2449,377
+fregion,RU-PNZ,Пензенская область,2251,1335
+fregion,RU-SAM,Самарская область,4600,5
+fregion,RU-SAR,Саратовская область,2605,24
+fregion,RU-ULY,Ульяновская область,2199,3
+fdistrict,Volga,Приволжский округ,41710,0
+fregion,RU-KGN,Курганская область,1410,1489
+fregion,RU-SVE,Свердловская область,5387,13
+fregion,RU-TYU,Тюменская область,3431,497
+fregion,RU-CHE,Челябинская область,4924,3754
+fregion,RU-KHM,Ханты-мансийский авт.округ,2462,1027
+fregion,RU-YAN,Ямало-ненецкий авт.округ,743,956
+fdistrict,Urals,Уральский округ,18357,0
+fregion,RU-AL,Республика Алтай,436,2
+fregion,RU-BU,Республика Бурятия,1463,1
+fregion,RU-TY,Республика Тыва,337,0
+fregion,RU-KK,Республика Хакасия,1170,859
+fregion,RU-ALT,Алтайский край,3778,759
+fregion,RU-ZAB,Забайкальский край,1287,1
+fregion,RU-KYA,Красноярский край,5135,2
+fregion,RU-IRK,Иркутская область,3420,407
+fregion,RU-KEM,Кемеровская область,3913,907
+fregion,RU-NVS,Новосибирская область,2637,50
+fregion,RU-OMS,Омская область,3377,21
+fregion,RU-TOM,Томская область,952,0
+fdistrict,Siberia,Сибирский округ,27905,0
+fregion,RU-SA,Республика Саха (Якутия),932,2887
+fregion,RU-PRI,Приморский край,4370,983
+fregion,RU-KAM,Камчатский край,655,1
+fregion,RU-KHA,Хабаровский край,2203,3
+fregion,RU-AMU,Амурская область,1367,1322
+fregion,RU-MAG,Магаданская область,314,387
+fregion,RU-SAK,Сахалинская область,760,0
+fregion,RU-YEV,Еврейская автономная область,403,0
+fregion,RU-CHU,Чукотский авт.округ,24,0
+fdistrict,Far_Eastern,Дальневосточный округ,11028,0

@@ -31,7 +31,7 @@
       <td width="100px">
         <ul>
           <li :key="index" v-for="(dynamic, index) in tru.dynamics">
-            {{ dynamic.contract_year }}:&nbsp;{{ rounding(dynamic.amount) }}
+            г.{{ dynamic.contract_year }}:&nbsp;{{ rounding(dynamic.amount) }}
           </li>
         </ul>
       </td>
@@ -75,7 +75,7 @@
       <div class="modal-header d-flex justify-content-center align-items-center">
         <figure>
             <blockquote class="blockquote">
-              <p>Заказчики которые покупают товар ИД:{{ truX.id_cte }}</p>
+              <h2>Заказчики которые покупают товар ИД:{{ truX.id_cte }}</h2>
             </blockquote>
             <figcaption class="blockquote-footer">
               {{ truX.cte_name }}
@@ -105,7 +105,7 @@
                 <button
                     type="button"
                     :class="[consumer.subscribe ? 'btn btn-success' : 'btn btn-primary']"
-                    v-on:click="subscribe(consumer.id_consumer)"
+                    v-on:click="subscribe(consumer.uuid_id)"
                 >
                   Подписаться
                 </button>
@@ -148,7 +148,7 @@
 
 <script>
 import {SparklineCurve, Sparklines} from 'vue-sparklines'
-
+import { v4 as uuidv4 } from 'uuid';
 import axios from "@/axios";
 import store from "@/store";
 
@@ -189,12 +189,12 @@ export default {
     this.get_data()
   },
   methods: {
-    subscribe(id_consumer) {
-      console.log(id_consumer)
+    subscribe(uuid_id) {
+      console.log(uuid_id)
       this.showSubscribeModal = !this.showSubscribeModal;
       this.truXConsumersData.forEach(item => {
-        if (item.id_consumer === id_consumer) {
-          console.log('-- ', item.id_consumer, ' -- ', id_consumer)
+        if (item.uuid_id === uuid_id) {
+          console.log('--- ', item.uuid_id, ' -- ', uuid_id)
           item.subscribe = true
         }
       })
@@ -217,7 +217,10 @@ export default {
       ).then(
           ({data}) => {
             this.truXConsumersData = data;
-            this.truXConsumersData.map(item => item['subscribe'] = false)
+            this.truXConsumersData.map(item => {
+              item['uuid_id'] = uuidv4();
+              item['subscribe'] = false;
+            })
             console.log(this.truXConsumersData)
           }
       ).catch(
@@ -282,6 +285,12 @@ export default {
     max-width: 90%;
 }
 .ptm{
-  padding-top: 30%;
+  padding-top: 120px;
+}
+.blockquote-footer {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    font-size: 1em;
+    color: #757575;
 }
 </style>

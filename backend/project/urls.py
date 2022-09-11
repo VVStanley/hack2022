@@ -23,7 +23,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
-    path('', TemplateView.as_view(template_name='base-vue.html'), name='home'),
+    path('map/', TemplateView.as_view(template_name='map.html'), name='map'),
 
     path('api/v1/', include('api.urls'), name='api'),
 

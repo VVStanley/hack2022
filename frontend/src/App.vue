@@ -8,8 +8,10 @@
         <router-link class="nav-link" to="/contracts">Мои контракты</router-link>
         <router-link class="nav-link" to="/tru">Справочник товаров</router-link>
         <router-link class="nav-link" to="/mytru">Мои товары</router-link>
-        <router-link class="nav-link" to="/consumerTru">Покупают товар</router-link>
         <router-link class="nav-link" to="/consumers">Мои клиенты</router-link>
+
+        <a href="http://172.20.26.3:8000/map/" target="_blank" class="nav-link">Карта поставщиков</a>
+
         <router-link class="nav-link " to="/logout">Выход</router-link>
 
       </div>
@@ -17,6 +19,7 @@
         <router-link class="nav-link" to="/">Home</router-link>
         <router-link class="nav-link" to="/login">Login</router-link>
       </div>
+
     </div>
   </div>
 </nav>

@@ -8,7 +8,6 @@ import Supplier from '../views/Suplier'
 import Contracts from '../views/Contracts'
 import Consumers from '../views/Consumers'
 import MyTru from '../views/MyTru'
-import ConsumerTru from '../views/ConsumerTru'
 
 const routes = [
   {
@@ -50,14 +49,6 @@ const routes = [
       needAuth: true,
     },
     component: MyTru
-  },
-  {
-    path: '/consumerTru',
-    name: 'consumerTru',
-    meta: {
-      needAuth: true,
-    },
-    component: ConsumerTru
   },
   {
     path: '/supplier',
